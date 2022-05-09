@@ -7,7 +7,7 @@ const getAllProducts = async (_req, res) => {
 
 const productById = async (req, res, next) => {
   try {
-    const { id } = await req.params;
+    const { id } = req.params;
     const product = await productService.productById(id);
     res.status(200).json(product);
   } catch (error) {
@@ -33,7 +33,18 @@ const productUpdate = async (req, res, next) => {
     const product = await productService.productUpdate(name, quantity, id);
     res.status(200).json(product);
   } catch (error) {
-    console.log('productUpdate Controller error', error.message);
+    console.log('productUpdate error', error.message);
+    next(error);
+  }
+};
+
+const productDelete = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await productService.productDelete(id);
+    res.status(204).json(product);
+  } catch (error) {
+    console.log('productDelete error', error.message);
     next(error);
   }
 };
@@ -43,4 +54,5 @@ module.exports = {
   productById,
   productRegister,
   productUpdate,
+  productDelete,
 };

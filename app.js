@@ -3,7 +3,8 @@ const {
   getAllProducts,
   productById,
   productRegister,
-  productUpdate } = require('./controllers/productController');
+  productUpdate,
+  productDelete } = require('./controllers/productController');
 const { findSale, getAllSales } = require('./controllers/saleController');
 const validateProduct = require('./middlewares/validateProduct');
 const validateSale = require('./middlewares/validateSale');
@@ -20,6 +21,7 @@ app.get('/products', getAllProducts);
 app.get('/products/:id', productById);
 app.post('/products', validateProduct, productRegister);
 app.put('/products/:id', validateProduct, productUpdate);
+app.delete('/products/:id', productDelete);
 
 app.get('/sales', getAllSales);
 app.get('/sales/:id', findSale);
@@ -27,7 +29,7 @@ app.post('/sales', validateSale);
 app.put('/sales/:id', validateSale);
 
 app.use((err, req, res, _next) => {
-  console.log('errrrrr', err.message);
+  console.log('Internal Error: ', err.message);
   if (err.status) return res.status(err.status).json({ message: err.message });
   return res.status(500).json({ message: 'Internal Server Error' });
 });
