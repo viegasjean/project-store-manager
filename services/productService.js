@@ -5,8 +5,8 @@ const getAll = async () => {
   return products;
 };
 
-const findProduct = async (id) => {
-  const product = await productModel.findProduct(id);
+const productById = async (id) => {
+  const product = await productModel.productById(id);
 
   if (!product) {
     const error = { status: 404, message: 'Product not found' };
@@ -16,7 +16,30 @@ const findProduct = async (id) => {
   return product;
 };
 
+const productRegister = async (name, quantity) => {
+  const productExists = await productModel.productByName(name);
+  if (productExists) {
+    const error = { status: 409, message: 'Product already exists' };
+    throw error;
+  }
+  const product = await productModel.productRegister(name, quantity);
+  return product;
+};
+
+const productUpdate = async (name, quantity, id) => {
+  const productExists = await productModel.productById(id);
+
+  if (!productExists) {
+    const error = { status: 404, message: 'Product not found' };
+    throw error;
+  }
+  const product = await productModel.productUpdate(name, quantity, id);
+  return product;
+};
+
 module.exports = {
   getAll,
-  findProduct,
+  productById,
+  productRegister,
+  productUpdate,
 };
