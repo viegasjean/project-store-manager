@@ -5,7 +5,7 @@ const {
   productRegister,
   productUpdate,
   productDelete } = require('./controllers/productController');
-const { findSale, getAllSales } = require('./controllers/saleController');
+const { findSale, getAllSales, saleRegister } = require('./controllers/saleController');
 const validateProduct = require('./middlewares/validateProduct');
 const validateSale = require('./middlewares/validateSale');
 
@@ -25,7 +25,7 @@ app.delete('/products/:id', productDelete);
 
 app.get('/sales', getAllSales);
 app.get('/sales/:id', findSale);
-app.post('/sales', validateSale);
+app.post('/sales', saleRegister);
 app.put('/sales/:id', validateSale);
 
 app.use((err, req, res, _next) => {

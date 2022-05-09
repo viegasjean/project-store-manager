@@ -17,7 +17,17 @@ const findSale = async (id) => {
   return sale;
 };
 
+const saleRegister = async (sale) => {
+  const soldId = await saleModel.saleRegister(sale);
+
+  return {
+    id: soldId,
+    itemsSold: sale,
+  };
+};
+
 module.exports = {
   getAll,
   findSale,
+  saleRegister,
 };
