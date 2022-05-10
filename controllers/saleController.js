@@ -21,8 +21,17 @@ const saleRegister = async (req, res) => {
   return res.status(201).json(sold);
 };
 
+const saleUpdate = async (req, res) => {
+  const { id } = req.params;
+  const [{ productId, quantity }] = req.body;
+  console.log(req.body);
+  const sold = await saleService.saleUpdate(id, productId, quantity);
+  return res.status(200).json(sold);
+};
+
 module.exports = {
   getAllSales,
   findSale,
   saleRegister,
+  saleUpdate,
 };

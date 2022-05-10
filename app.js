@@ -5,9 +5,9 @@ const {
   productRegister,
   productUpdate,
   productDelete } = require('./controllers/productController');
-const { findSale, getAllSales, saleRegister } = require('./controllers/saleController');
+const { findSale, getAllSales, saleRegister, saleUpdate } = require('./controllers/saleController');
 const validateProduct = require('./middlewares/validateProduct');
-const validateSale = require('./middlewares/validateSale');
+// const validateSale = require('./middlewares/validateSale');
 
 const app = express();
 app.use(express.json());
@@ -26,7 +26,7 @@ app.delete('/products/:id', productDelete);
 app.get('/sales', getAllSales);
 app.get('/sales/:id', findSale);
 app.post('/sales', saleRegister);
-app.put('/sales/:id', validateSale);
+app.put('/sales/:id', saleUpdate);
 
 app.use((err, req, res, _next) => {
   console.log('Internal Error: ', err.message);

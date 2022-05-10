@@ -26,8 +26,21 @@ const saleRegister = async (sale) => {
   };
 };
 
+const saleUpdate = async (id, productId, quantity) => {
+  const result = saleModel.saleUpdate(id, productId, quantity);
+  if (result) {
+    return {
+      saleId: id,
+      itemUpdated: [{
+        productId, quantity,
+      }],
+    };
+  }
+};
+
 module.exports = {
   getAll,
   findSale,
   saleRegister,
+  saleUpdate,
 };
