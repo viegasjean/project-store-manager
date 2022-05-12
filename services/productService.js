@@ -12,7 +12,7 @@ const productById = async (id) => {
     const error = { status: 404, message: 'Product not found' };
     throw error;
   }
-
+  console.log('productByIdService: ', product);
   return product;
 };
 
@@ -23,6 +23,7 @@ const productRegister = async (name, quantity) => {
     throw error;
   }
   const product = await productModel.productRegister(name, quantity);
+
   return product;
 };
 

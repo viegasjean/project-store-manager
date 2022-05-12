@@ -21,8 +21,7 @@ const productRegister = async (req, res, next) => {
     const product = await productService.productRegister(name, quantity);
     return res.status(201).json(product);
   } catch (error) {
-    console.log('productRegister Controller error', error.message);
-    next(error);
+    return next(error);
   }
 };
 
