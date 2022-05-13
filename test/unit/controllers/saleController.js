@@ -33,7 +33,7 @@ describe('Chamada do controller getAll', () => {
     })
   })
 
-  describe('quando existem vendas no banco de dados', async () => {
+  describe('quando existem vendas no banco de dados', () => {
     const response = {};
     const request = {};
 
@@ -74,7 +74,7 @@ describe('Chamada do controller getAll', () => {
 })
 
 describe("Ao chamar o controller saleRegister", () => {
-  describe("quando é inserido com sucesso", async () => {
+  describe("quando é inserido com sucesso", () => {
     const response = {};
     const request = {};
     const mockedsale = {

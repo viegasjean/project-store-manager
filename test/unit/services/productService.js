@@ -5,7 +5,7 @@ const productService = require("../../../services/productService")
 const productModel = require("../../../models/productModel")
 
 describe("Insere um novo produto", () => {
-  describe("quando o produto existe", async () => {
+  describe("quando o produto existe", () => {
     const payloadProduct = {
       name: 'Martelo do Chapolin',
       quantity: 10,
@@ -37,7 +37,7 @@ describe("Insere um novo produto", () => {
     });
   });
 
-  describe("quando é inserido com sucesso", async () => {
+  describe("quando é inserido com sucesso", () => {
     const payloadProduct = {
       name: 'Martelo do Chapolin',
       quantity: 10,

@@ -33,7 +33,7 @@ describe('Chamada do controller getAllProducts', () => {
     })
   })
 
-  describe('quando existem filmes no banco de dados', async () => {
+  describe('quando existem filmes no banco de dados', () => {
     const response = {};
     const request = {};
 
@@ -74,7 +74,7 @@ describe('Chamada do controller getAllProducts', () => {
 })
 
 describe("Ao chamar o controller productRegister", () => {
-  describe("quando é inserido com sucesso", async () => {
+  describe("quando é inserido com sucesso", () => {
     const response = {};
     const request = {};
     const mockedProduct = {
