@@ -6,13 +6,16 @@ const SALE = Joi.object({
 });
 
 const validateSale = (req, _res, next) => {
-  const { productId, quantity } = req.body;
+  console.log('boooodddyyy', req.body);
+  const products = req.body;
 
-  const { error } = SALE.validate({ productId, quantity });
+  products.forEach(({ productId, quantity }) => {
+    const { error } = SALE.validate({ productId, quantity });
 
-  if (error && error.message.includes('required')) next({ status: 400, message: error.message });
+    if (error && error.message.includes('required')) next({ status: 400, message: error.message });
 
-  if (error) next({ status: 422, message: error.message });
+    if (error) next({ status: 422, message: error.message });
+  });
 
   next();
 };
