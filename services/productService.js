@@ -12,7 +12,6 @@ const productById = async (id) => {
     const error = { status: 404, message: 'Product not found' };
     throw error;
   }
-  console.log('productByIdService: ', product);
   return product;
 };
 

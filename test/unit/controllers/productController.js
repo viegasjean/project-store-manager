@@ -3,7 +3,6 @@ const { expect } = require("chai");
 
 const productService = require("../../../services/productService");
 const productController = require("../../../controllers/productController");
-const validate = require("../../../middlewares/validateProduct");
 
 describe('Chamada do controller getAllProducts', () => {
   describe('Quando não existem filmes no banco', () => {

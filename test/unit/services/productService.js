@@ -12,8 +12,6 @@ describe("Insere um novo produto", () => {
     };
 
     before(() => {
-      const ID_EXAMPLE = 1;
-
       sinon.stub(productModel, "productRegister").resolves({ status: 409, message: 'Product already exists' });
     });
 
@@ -186,17 +184,6 @@ describe('Lista o produto por id', () => {
       } catch (error) {
         expect(error.message).to.equal('Product not found');
       }
-
     });
   })
-})
-
-describe('Atualiza um produto de determinado id', () => {
-  describe('quanto o produto está no Banco', () => {})
-  describe('quando o produto não está no banco', () => {})
-})
-
-describe('Remove um produto de determinado id', () => {
-  describe('quanto o produto está no Banco', () => {})
-  describe('quando o produto não está no banco', () => {})
 })
