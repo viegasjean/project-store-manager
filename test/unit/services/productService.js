@@ -12,28 +12,32 @@ describe("Insere um novo produto", () => {
     };
 
     before(() => {
+      sinon.stub(productModel, "productByName").resolves(true);
       sinon.stub(productModel, "productRegister").resolves({ status: 409, message: 'Product already exists' });
     });
 
     after(() => {
+      productModel.productByName.restore();
       productModel.productRegister.restore();
     });
 
-    it('é um objeto', async () => {
-      const response = await productService.productRegister(payloadProduct);
+    it('dispara um erro em forma de objeto', async () => {
+      try {
 
-      expect(response).to.be.a("object");
+      } catch (error) {
+        expect(response).to.be.a("object");
+      }
+
     });
 
-    it('é um objeto com o status e message corretos', async () => {
-      const response = await productService.productRegister(payloadProduct);
+    it('dispara um erro esperado', async () => {
+      try {
 
-      expect(response).to.to.be.includes.all.keys(
-        'status',
-        'message'
-      )
+      } catch (error) {
+        expect(error).to.contains({ status: 409, message: 'Product already exists' })
+      }
 
-      expect(response).to.to.contains({ status: 409, message: 'Product already exists' })
+
     });
   });
 
@@ -45,7 +49,7 @@ describe("Insere um novo produto", () => {
 
     before(() => {
       const ID_EXAMPLE = 1;
-
+      sinon.stub(productModel, "productByName").resolves(false);
       sinon.stub(productModel, "productRegister").resolves({
         id: ID_EXAMPLE,
         name: 'Martelo do Chapolin',
