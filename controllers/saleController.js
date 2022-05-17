@@ -29,9 +29,21 @@ const saleUpdate = async (req, res) => {
   return res.status(200).json(sold);
 };
 
+const saleDelete = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const sale = await saleService.saleDelete(id);
+    res.status(204).json(sale);
+  } catch (error) {
+    console.log('saleDelete error', error.message);
+    next(error);
+  }
+};
+
 module.exports = {
   getAllSales,
   findSale,
   saleRegister,
   saleUpdate,
+  saleDelete,
 };

@@ -37,9 +37,21 @@ const saleUpdate = async (id, productId, quantity) => {
   }
 };
 
+const saleDelete = async (id) => {
+  const sale = await saleModel.saleDelete(id);
+
+  if (!sale.affectedRows) {
+    const error = { status: 404, message: 'Sale not found' };
+    throw error;
+  }
+
+  return sale;
+};
+
 module.exports = {
   getAll,
   findSale,
   saleRegister,
   saleUpdate,
+  saleDelete,
 };

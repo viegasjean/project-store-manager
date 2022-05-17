@@ -53,9 +53,18 @@ const saleUpdate = async (id, productId, quantity) => {
   return result;
 };
 
+const saleDelete = async (id) => {
+  const [sale] = await connection.execute(`
+  DELETE FROM sales_products
+  WHERE sale_id = ?
+  `, [id]);
+  return sale;
+};
+
 module.exports = {
   getAll,
   findSale,
   saleRegister,
   saleUpdate,
+  saleDelete,
 };

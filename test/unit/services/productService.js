@@ -25,7 +25,7 @@ describe("Insere um novo produto", () => {
       try {
 
       } catch (error) {
-        expect(response).to.be.a("object");
+        expect(error).to.be.a("object");
       }
 
     });
