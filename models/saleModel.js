@@ -1,4 +1,5 @@
 const connection = require('./connection');
+const { productById } = require('./productModel');
 
 const getAll = async () => {
   const [sales] = await connection
@@ -33,8 +34,14 @@ const findSale = async (id) => {
 const saleRegister = async (sale) => {
   const [{ insertId: soldId }] = await connection
   .execute('INSERT INTO sales (date) values (now())');
+  const sold = sale.map(({ productId, quantity }) => {
+    productById(productId).then(({ quantity: productQuantity }) => {
+      connection.query('UPDATE products SET quantity = ? WHERE id = ?',
+        [productQuantity - quantity, productId]);
+    });
 
-  const sold = sale.map(({ productId, quantity }) => [soldId, productId, quantity]);
+    return [soldId, productId, quantity];
+  });
 
   await connection.query(`
     INSERT INTO sales_products (sale_id, product_id, quantity)
@@ -54,10 +61,19 @@ const saleUpdate = async (id, productId, quantity) => {
 };
 
 const saleDelete = async (id) => {
+  const [saleProduct] = await findSale(id);
+
+  if (saleProduct) {
+    const product = await productById(saleProduct.productId);
+    await connection.execute('UPDATE products SET quantity = ? WHERE id = ?',
+      [product.quantity + saleProduct.quantity, saleProduct.productId]);
+  }
+
   const [sale] = await connection.execute(`
   DELETE FROM sales_products
   WHERE sale_id = ?
   `, [id]);
+
   return sale;
 };
 
